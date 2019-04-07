@@ -4,6 +4,8 @@ services:
   app:
     build: ./
     image: mean
+    ports: 
+      - 4040:4040
     expose:
       - 4040
     environment:
