@@ -1,16 +1,39 @@
-PEOPLE\bhushanv@lp7751:~/Documents/projects/mean$ mongoexport --db mean --collection products
-2019-04-08T06:03:13.464+0530    connected to: localhost
-{"_id":{"$oid":"5caa965ed5dfb2515a887dc5"},"category_id":["5caa93aed5dfb2515a887dbb","5caa94ead5dfb2515a887dc2"],"category_tags":["iPhone","Mobiles","Electronics"],"name":"iPhone Bluetooth Headphones","created_at":{"$date":"2019-04-08T00:31:26.256Z"}}
-{"_id":{"$oid":"5caa9668d5dfb2515a887dc6"},"category_id":["5caa93aed5dfb2515a887dbb","5caa94ead5dfb2515a887dc2"],"category_tags":["iPhone","Mobiles","Electronics"],"name":"iPhone Back Cover","created_at":{"$date":"2019-04-08T00:31:36.618Z"}}
-2019-04-08T06:03:13.464+0530    exported 2 records
-PEOPLE\bhushanv@lp7751:~/Documents/projects/mean$ mongoexport --db mean --collection categories
-2019-04-08T06:03:26.629+0530    connected to: localhost
-{"_id":{"$oid":"5caa93aed5dfb2515a887dbb"},"parent_categories":[],"name_of_parent_categories":[],"name":"Electronics","created_at":{"$date":"2019-04-08T00:19:58.940Z"}}
-{"_id":{"$oid":"5caa9449d5dfb2515a887dbd"},"parent_categories":[{"$oid":"5caa93aed5dfb2515a887dbb"}],"name_of_parent_categories":["Electronics"],"name":"Mobiles","parent_category":{"$oid":"5caa93aed5dfb2515a887dbb"},"created_at":{"$date":"2019-04-08T00:22:33.560Z"}}
-{"_id":{"$oid":"5caa9483d5dfb2515a887dbe"},"parent_categories":[{"$oid":"5caa9449d5dfb2515a887dbd"},{"$oid":"5caa93aed5dfb2515a887dbb"}],"name_of_parent_categories":["Mobiles","Electronics"],"name":"Samsung","parent_category":{"$oid":"5caa9449d5dfb2515a887dbd"},"created_at":{"$date":"2019-04-08T00:23:31.811Z"}}
-{"_id":{"$oid":"5caa9492d5dfb2515a887dbf"},"parent_categories":[{"$oid":"5caa9449d5dfb2515a887dbd"},{"$oid":"5caa93aed5dfb2515a887dbb"}],"name_of_parent_categories":["Mobiles","Electronics"],"name":"Google Pixel","parent_category":{"$oid":"5caa9449d5dfb2515a887dbd"},"created_at":{"$date":"2019-04-08T00:23:46.250Z"}}
-{"_id":{"$oid":"5caa94b3d5dfb2515a887dc0"},"parent_categories":[{"$oid":"5caa9449d5dfb2515a887dbd"},{"$oid":"5caa93aed5dfb2515a887dbb"}],"name_of_parent_categories":["Mobiles","Electronics"],"name":"iPhone","parent_category":{"$oid":"5caa9449d5dfb2515a887dbd"},"created_at":{"$date":"2019-04-08T00:24:19.961Z"}}
-{"_id":{"$oid":"5caa94dfd5dfb2515a887dc1"},"parent_categories":[{"$oid":"5caa94b3d5dfb2515a887dc0"},{"$oid":"5caa9449d5dfb2515a887dbd"},{"$oid":"5caa93aed5dfb2515a887dbb"}],"name_of_parent_categories":["iPhone","Mobiles","Electronics"],"name":"iPhone 6s","parent_category":{"$oid":"5caa94b3d5dfb2515a887dc0"},"created_at":{"$date":"2019-04-08T00:25:03.568Z"}}
-{"_id":{"$oid":"5caa94ead5dfb2515a887dc2"},"parent_categories":[{"$oid":"5caa94b3d5dfb2515a887dc0"},{"$oid":"5caa9449d5dfb2515a887dbd"},{"$oid":"5caa93aed5dfb2515a887dbb"}],"name_of_parent_categories":["iPhone","Mobiles","Electronics"],"name":"iPhone plus","parent_category":{"$oid":"5caa94b3d5dfb2515a887dc0"},"created_at":{"$date":"2019-04-08T00:25:14.818Z"}}
-2019-04-08T06:03:26.630+0530    exported 7 records
-PEOPLE\bhushanv@lp7751:~/Documents/projects/mean$ 
+curl -X POST \
+  http://localhost:4040/api/category/ \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -H 'postman-token: 653b3f57-e831-3609-d1be-61ee2abe023c' \
+  -d 'name=iPhone%20plus&parent_category=5caa94b3d5dfb2515a887dc0'
+
+
+curl -X GET \
+  http://localhost:4040/api/category/ \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: d5bf4b89-1041-f647-56c5-ee1c91c425a1'
+
+  curl -X GET \
+  http://localhost:4040/api/category/5caa94ead5dfb2515a887dc2 \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: 0c9291f7-8f26-9a41-dc5e-50209d2f1c0b'
+
+
+
+
+curl -X POST \
+  http://localhost:4040/api/product/ \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -H 'postman-token: c5cf41fe-3c0c-78ac-98d4-658d1803713f' \
+  -d 'name=iPhone%20Back%20Cover&category_id%5B%5D=5caa93aed5dfb2515a887dbb&category_id%5B%5D=5caa94ead5dfb2515a887dc2'
+
+curl -X GET \
+  http://localhost:4040/api/product/ \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: d317ddbe-177c-efb1-6206-ffc709c97152'
+
+
+curl -X GET \
+  http://localhost:4040/api/product/5caa9591d5dfb2515a887dc3 \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: f1e17d6b-bec3-ee0d-982b-980974e5a478'
+  
