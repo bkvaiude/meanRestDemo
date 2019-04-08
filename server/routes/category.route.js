@@ -1,28 +1,33 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler')
 const passport = require('passport');
-const userCtrl = require('../controllers/user.controller');
-const authCtrl = require('../controllers/auth.controller');
+const categoryCtl = require('../controllers/category.controller');
 const config = require('../config/config');
-
 const router = express.Router();
 module.exports = router;
-
-router.post('/register', asyncHandler(register), login);
-router.post('/login', passport.authenticate('local', { session: false }), login);
-router.get('/me', passport.authenticate('jwt', { session: false }), login);
-
-
-async function register(req, res, next) {
-  let user = await userCtrl.insert(req.body);
-  user = user.toObject();
-  delete user.hashedPassword;
-  req.user = user;
-  next()
+router.get('/', asyncHandler(getAll));
+router.get('/:categoryid', asyncHandler(get));
+router.post('/', asyncHandler(create));
+// router.put('/:categoryid', asyncHandler(update));
+async function getAll(req, res) {
+    let category = await categoryCtl.mostRecentRecords();
+    console.log(category)
+    res.json(category);
 }
-
-function login(req, res) {
-  let user = req.user;
-  let token = authCtrl.generateToken(user);
-  res.json({ user, token });
+async function get(req, res) {
+    let category = await categoryCtl.findByID(req.params.categoryid);
+    if (category == null) {
+        category = {};
+    } else category = category.toObject();
+    res.json(category);
 }
+async function create(req, res) {
+    console.log(req.body)
+    let category = await categoryCtl.create(req.body);
+    res.json(category);
+}
+// async function update(req, res) {
+//   let category = await category.updateByID(req.params.categoryid);
+//   category = category.toObject();
+//   res.json(category);
+// }

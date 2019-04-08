@@ -2,7 +2,7 @@ const express = require('express');
 const userRoutes = require('./user.route');
 const authRoutes = require('./auth.route');
 const productRoutes = require('./product.route');
-// const categoryRoutes = require('./category.route');
+const categoryRoutes = require('./category.route');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -14,6 +14,6 @@ router.get('/health-check', (req, res) =>
 router.use('/auth', authRoutes);
 router.use('/user', userRoutes);
 router.use('/product', productRoutes);
-// router.use('/category', categoryRoutes);
+router.use('/category', categoryRoutes);
 
 module.exports = router;

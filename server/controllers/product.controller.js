@@ -4,7 +4,8 @@ const Product = require('../models/product.model');
 var mongoose = require('mongoose');
 
 const productSchema = Joi.object({
-  name: Joi.string().required()
+  name: Joi.string().required(),
+  category_id: [Joi.string()]
 })
 
 
@@ -15,7 +16,7 @@ module.exports = {
 }
 
 async function create(product) {
-  product = await Joi.validate(product, productSchema, { abortEarly: false });
+  // product = await Joi.validate(product, productSchema, { abortEarly: false });
   return await new Product(product).save();
 }
 
@@ -26,6 +27,6 @@ async function findByID(product) {
 }
 
 async function mostRecentRecords() {
-  let productData = await Product.find({}).sort({'createdAt': -1}).limit(20);
+  let productData = await Product.find({}).sort({'created_at': -1}).limit(20);
   return productData;
 }
