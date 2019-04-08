@@ -1,7 +1,7 @@
 ## Welcome to the mean stack REST API demo application
 
 ### Screenshots
-- you can go through the screenshot to get better understanding of designed API
+- you can go through the screenshot folder to get better and quick understanding of API design
 
 ### Sample files
 - you can find `mongodata.sample` in the root dir for sample mongoDB data
