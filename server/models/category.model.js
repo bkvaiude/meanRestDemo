@@ -26,10 +26,12 @@ const CategorySchema = new mongoose.Schema({
 });
 CategorySchema.pre('save', async function(next) {
     // console.log("------start",this.parent_category)
-    var parents = await findMyParent(this.parent_category, [], []);
-    this.parent_categories = parents.ids;
-    this.name_of_parent_categories = parents.names;
-    // console.log("------end",this.parent_category)
+    if (!_.isEmpty(this.parent_category)) {
+        var parents = await findMyParent(this.parent_category, [], []);
+        this.parent_categories = parents.ids;
+        this.name_of_parent_categories = parents.names;
+        // console.log("------end",this.parent_category)
+    }
     next();
 });
 async function findMyParent(category, parents, names) {
@@ -39,7 +41,10 @@ async function findMyParent(category, parents, names) {
     parents.push(category)
     names.push(categoryData.name)
     if (_.isEmpty(categoryData.parent_category)) {
-        return {"ids":parents, "names":names};
+        return {
+            "ids": parents,
+            "names": names
+        };
     } else {
         return findMyParent(categoryData.parent_category, parents, names);
     }
